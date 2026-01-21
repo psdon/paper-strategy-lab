@@ -7,7 +7,37 @@ Paper link: `https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865`
 See `docs/WORKFLOW.md` for the end-to-end flow from PDF → YAML specs → backtests.
 See `docs/BACKTEST_PLAN.md` for the plan to backtest the full paper and keep this repo public-ready.
 See `docs/COVERAGE.md` for current implementation coverage.
+See `docs/RESULTS_since_2005.md` for the latest backtest results table.
 See `DISCLAIMER.md` for important usage disclaimers.
+
+## Latest Results (Since 2005, Calmar-ranked)
+
+Generated: `2026-01-21` (see `docs/RESULTS_since_2005.md` for full details).
+
+Assumptions: daily close-to-close, 1-day execution lag, long-only, fee=0 bps, slippage=0 bps.
+
+Top strategies (sorted by Calmar):
+
+| rank | id | calmar | sharpe | cagr | maxdd | calmar_vs_bh |
+|---:|---|---:|---:|---:|---:|---:|
+| 1 | `3.11-single-ma` | 0.42 | 0.78 | 8.58% | -20.50% | +0.22 |
+| 2 | `3.3-value-us-equities` | 0.36 | 0.88 | 17.29% | -48.68% | +0.16 |
+| 3 | `3.14-support-resistance` | 0.35 | 0.71 | 7.38% | -20.82% | +0.16 |
+| 4 | `3.7-residual-momentum-us-equities` | 0.35 | 0.86 | 15.63% | -44.52% | +0.16 |
+| 5 | `3.1-cs-momentum-us-equities` | 0.34 | 0.85 | 17.05% | -50.50% | +0.14 |
+| 6 | `3.4-low-vol-us-equities` | 0.32 | 0.82 | 14.77% | -46.08% | +0.13 |
+| 7 | `3.6-multifactor-us-equities` | 0.32 | 0.83 | 15.84% | -49.91% | +0.12 |
+| 8 | `4.6-multi-asset-trend` | 0.29 | 0.75 | 7.82% | -26.83% | +0.10 |
+| 9 | `10.4-trend-following-mom-invvol` | 0.29 | 0.83 | 6.62% | -22.75% | +0.10 |
+| 10 | `3.13-three-ma` | 0.27 | 0.59 | 5.40% | -20.18% | +0.07 |
+
+Benchmark (buy & hold SPY): `calmar=0.19`, `sharpe=0.63`, `cagr=10.71%`, `maxdd=-55.20%`.
+
+Reproduce:
+
+```bash
+paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --start 2005-01-01 --sort calmar --out-md docs/RESULTS_since_2005.md
+```
 
 ## Data: Sharadar
 
