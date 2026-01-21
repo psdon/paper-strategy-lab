@@ -5,9 +5,16 @@ from dataclasses import dataclass
 
 import pandas as pd
 
+from paper_strategy_lab.market_data import MarketData
+
 from .builtins import (
     buy_and_hold,
     channel_breakout,
+    equity_cross_sectional_momentum,
+    equity_low_volatility_long_only,
+    equity_multifactor_long_only,
+    equity_residual_momentum,
+    equity_value_long_only,
     mean_reversion_drawdown,
     multi_asset_trend_following_equal_weight,
     sector_momentum_rotation,
@@ -42,6 +49,11 @@ _BUILTIN_KINDS: dict[str, Callable[..., pd.DataFrame]] = {
     "sector_momentum_rotation": sector_momentum_rotation,
     "multi_asset_trend_equal": multi_asset_trend_following_equal_weight,
     "trend_follow_invvol": trend_following_momentum_inv_vol,
+    "equity_cs_momentum": equity_cross_sectional_momentum,
+    "equity_value": equity_value_long_only,
+    "equity_low_vol": equity_low_volatility_long_only,
+    "equity_multifactor": equity_multifactor_long_only,
+    "equity_residual_momentum": equity_residual_momentum,
 }
 
 
@@ -52,7 +64,7 @@ def resolve_strategy_callable(kind: str) -> Callable[..., pd.DataFrame]:
         raise KeyError(f"Unknown strategy kind={kind!r}. Known: {sorted(_BUILTIN_KINDS)}") from e
 
 
-def run_strategy_weights(prices: pd.DataFrame, spec: StrategySpec) -> pd.DataFrame:
+def run_strategy_weights(data: MarketData, spec: StrategySpec) -> pd.DataFrame:
     """
     Returns a weights DataFrame indexed like prices with columns like prices.
     """
@@ -60,4 +72,4 @@ def run_strategy_weights(prices: pd.DataFrame, spec: StrategySpec) -> pd.DataFra
     if not kind:
         raise ValueError(f"Strategy {spec.id!r} missing kind")
     fn = resolve_strategy_callable(kind)
-    return fn(prices, **spec.params)
+    return fn(data, **spec.params)

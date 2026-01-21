@@ -137,6 +137,40 @@ To keep the repo publishable and credible:
 **M4: Remaining “conceptual” strategies**
 - Mark as `blocked`/`not-applicable` with a clear explanation and what data would be needed
 
+## Current Status (2026-01-21)
+
+Implemented (Sharadar-only; long-only backtests):
+- Data connectors: Sharadar `SFP` (ETFs), `SEP` (equities), `DAILY` (valuation metrics), and `TICKERS` (metadata).
+- Universe: `sharadar_us_equities_liquid` (static liquidity screen; cached) for US equity cross-sectional strategies.
+- Strategy coverage added beyond ETF proxies:
+  - `3.1` cross-sectional momentum (US equities)
+  - `3.3` value (US equities; low `pe` by default)
+  - `3.4` low-volatility (US equities)
+  - `3.6` multifactor (momentum + value + low-vol)
+  - `3.7` residual momentum (US equities vs SPY)
+- Regenerable report: `docs/RESULTS_since_2005.md` via:
+  - `paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --start 2005-01-01 --out-md docs/RESULTS_since_2005.md`
+- Coverage matrix: `docs/COVERAGE.md` (generated from extracted section headings + current YAML/specs).
+
+## Next Tranche (Maximize Paper Coverage With Sharadar)
+
+Goal: cover as many remaining **equity** strategies in sections `3.*` (and equity-adjacent parts of `4.*`) as possible using only Sharadar (`SEP` + `DAILY` + `TICKERS` + `SFP`).
+
+High-impact next steps:
+- Make the equity universe **point-in-time** (monthly reconstitution, rolling ADV screen, minimum history) to reduce lookahead bias.
+- Add **earnings momentum** (`3.2`) if feasible:
+  - likely requires Sharadar `SF1` (fundamentals) or an equivalent point-in-time earnings dataset.
+- Implement **pairs trading** (`3.8`) variants feasible with daily prices:
+  - candidate approaches: correlation/cointegration pre-screen, z-score spread mean reversion, dollar-neutral constraints (if/when we support net exposure constraints).
+- Expand factor inputs for **value** and **quality** (where described in the paper) if available in `DAILY`:
+  - e.g. `pb`, `ps`, `ev/ebitda`, `marketcap` screens, etc.
+- Add equity **sector/industry** universes (if reliably encoded in Sharadar metadata) to support additional rotation/cluster strategies.
+
+Documented gaps:
+- Options sections (`2.*`, `7.*`) need options chains/IV surfaces.
+- Futures/FX carry/curve sections need futures curves + rates.
+- Credit/OTC/institutional strategies are expected to remain `blocked` without specialized data.
+
 ## Public GitHub Checklist
 
 - Keep `data/` and PDFs out of git (already ignored).

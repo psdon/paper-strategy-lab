@@ -8,12 +8,12 @@ import yaml
 
 def load_specs(spec_path: Path) -> dict[str, dict]:
     data = yaml.safe_load(spec_path.read_text(encoding="utf-8")) or {}
-    specs = {}
+    specs: dict[str, list[dict]] = {}
     for s in data.get("strategies", []):
         paper = s.get("paper") or {}
         section = paper.get("section")
         if section:
-            specs[str(section)] = s
+            specs.setdefault(str(section), []).append(s)
     return specs
 
 
@@ -31,9 +31,15 @@ def main() -> int:
     lines.append("")
     lines.append("This table tracks which paper strategies are implemented in code/specs.")
     lines.append("")
-    lines.append("- `implemented`: runnable via `paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml`")
+    lines.append(
+        "- `implemented`: runnable via `paper-strategy-lab leaderboard "
+        "strategies/ssrn-3247865.yaml`"
+    )
     lines.append("- `planned`: mapped but not yet implemented")
-    lines.append("- `blocked`: needs data not currently wired (options chains, futures curves, OTC quotes, etc.)")
+    lines.append(
+        "- `blocked`: needs data not currently wired (options chains, futures curves, "
+        "OTC quotes, etc.)"
+    )
     lines.append("")
     lines.append("| Paper Section | Title | Status | Strategy ID | Notes |")
     lines.append("|---|---|---|---|---|")
@@ -56,14 +62,15 @@ def main() -> int:
     for h in headings:
         section = h["section"]
         title = h["title"]
-        spec = specs_by_section.get(section)
-        if spec is None:
+        specs = specs_by_section.get(section) or []
+        if not specs:
             status, notes = classify_default(section)
             sid = ""
         else:
             status = "implemented"
-            sid = spec.get("id", "")
-            notes = f"kind={spec.get('kind')}"
+            sid = ", ".join([str(s.get("id", "")) for s in specs if s.get("id")])
+            kinds = sorted({str(s.get("kind", "")) for s in specs if s.get("kind")})
+            notes = f"kinds={','.join(kinds)}"
         lines.append(f"| {section} | {title} | {status} | {sid} | {notes} |")
 
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

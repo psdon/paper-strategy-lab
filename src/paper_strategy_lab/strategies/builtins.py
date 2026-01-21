@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from paper_strategy_lab.market_data import MarketData
+
 
 @dataclass(frozen=True)
 class Rebalance:
@@ -36,18 +38,16 @@ def _apply_monthly_rebalance(
     return _normalize_weights(w)
 
 
-def buy_and_hold(prices: pd.DataFrame | pd.Series, **_params: object) -> pd.DataFrame:
-    px0 = prices.copy()
-    px: pd.DataFrame = px0.to_frame() if isinstance(px0, pd.Series) else px0
+def buy_and_hold(data: MarketData, **_params: object) -> pd.DataFrame:
+    px = data.prices
     w = px.notna().astype(float)
     return _normalize_weights(w)
 
 
 def sma_crossover(
-    prices: pd.DataFrame | pd.Series, fast: int = 20, slow: int = 100, **_params: object
+    data: MarketData, fast: int = 20, slow: int = 100, **_params: object
 ) -> pd.DataFrame:
-    px0 = prices.copy()
-    px: pd.DataFrame = px0.to_frame() if isinstance(px0, pd.Series) else px0
+    px = data.prices
     if fast <= 0 or slow <= 0 or fast >= slow:
         raise ValueError("Expected 0 < fast < slow")
     fast_sma = px.rolling(fast).mean()
@@ -57,10 +57,9 @@ def sma_crossover(
 
 
 def single_moving_average(
-    prices: pd.DataFrame | pd.Series, window: int = 200, **_params: object
+    data: MarketData, window: int = 200, **_params: object
 ) -> pd.DataFrame:
-    px0 = prices.copy()
-    px: pd.DataFrame = px0.to_frame() if isinstance(px0, pd.Series) else px0
+    px = data.prices
     if window <= 0:
         raise ValueError("Expected window > 0")
     w = (px > px.rolling(window).mean()).astype(float)
@@ -68,20 +67,19 @@ def single_moving_average(
 
 
 def two_moving_averages(
-    prices: pd.DataFrame | pd.Series, fast: int = 50, slow: int = 200, **_params: object
+    data: MarketData, fast: int = 50, slow: int = 200, **_params: object
 ) -> pd.DataFrame:
-    return sma_crossover(prices, fast=fast, slow=slow, **_params)
+    return sma_crossover(data, fast=fast, slow=slow, **_params)
 
 
 def three_moving_averages(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     fast: int = 20,
     mid: int = 50,
     slow: int = 200,
     **_params: object,
 ) -> pd.DataFrame:
-    px0 = prices.copy()
-    px: pd.DataFrame = px0.to_frame() if isinstance(px0, pd.Series) else px0
+    px = data.prices
     if not (0 < fast < mid < slow):
         raise ValueError("Expected 0 < fast < mid < slow")
     f = px.rolling(fast).mean()
@@ -92,13 +90,12 @@ def three_moving_averages(
 
 
 def channel_breakout(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     entry_days: int = 20,
     exit_days: int = 10,
     **_params: object,
 ) -> pd.DataFrame:
-    px0 = prices.copy()
-    px: pd.DataFrame = px0.to_frame() if isinstance(px0, pd.Series) else px0
+    px = data.prices
     if entry_days <= 1 or exit_days <= 1:
         raise ValueError("Expected entry_days and exit_days > 1")
 
@@ -124,38 +121,34 @@ def channel_breakout(
 
 
 def support_resistance_breakout(
-    prices: pd.DataFrame | pd.Series, window_days: int = 50, **_params: object
+    data: MarketData, window_days: int = 50, **_params: object
 ) -> pd.DataFrame:
-    return channel_breakout(prices, entry_days=window_days, exit_days=window_days, **_params)
+    return channel_breakout(data, entry_days=window_days, exit_days=window_days, **_params)
 
 
 def time_series_momentum(
-    prices: pd.DataFrame | pd.Series, lookback_days: int = 252, **_params: object
+    data: MarketData, lookback_days: int = 252, **_params: object
 ) -> pd.DataFrame:
-    px = prices.copy()
-    if isinstance(px, pd.Series):
-        px = px.to_frame()
+    px = data.prices
     if lookback_days <= 0:
         raise ValueError("Expected lookback_days > 0")
-    mom = px.pct_change(lookback_days)
+    mom = px.pct_change(lookback_days, fill_method=None)
     w = (mom > 0).astype(float)
     return _normalize_weights(w)
 
 
 def mean_reversion_drawdown(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     lookback_days: int = 5,
     entry_return: float = -0.03,
     exit_return: float = 0.0,
     **_params: object,
 ) -> pd.DataFrame:
-    px = prices.copy()
-    if isinstance(px, pd.Series):
-        px = px.to_frame()
+    px = data.prices
     if lookback_days <= 0:
         raise ValueError("Expected lookback_days > 0")
 
-    r = px.pct_change(lookback_days)
+    r = px.pct_change(lookback_days, fill_method=None)
     w = pd.DataFrame(0.0, index=px.index, columns=px.columns)
     for col in px.columns:
         pos = 0.0
@@ -173,22 +166,20 @@ def mean_reversion_drawdown(
 
 
 def sector_momentum_rotation(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     lookback_days: int = 126,
     top_k: int = 3,
     ma_filter_days: int | None = 200,
     **_params: object,
 ) -> pd.DataFrame:
-    px = prices.copy()
-    if isinstance(px, pd.Series):
-        px = px.to_frame()
+    px = data.prices
 
     if lookback_days <= 0:
         raise ValueError("Expected lookback_days > 0")
     if top_k <= 0:
         raise ValueError("Expected top_k > 0")
 
-    mom = px.pct_change(lookback_days)
+    mom = px.pct_change(lookback_days, fill_method=None)
     ok = pd.DataFrame(True, index=px.index, columns=px.columns)
     if ma_filter_days is not None:
         ok = px > px.rolling(ma_filter_days).mean()
@@ -208,15 +199,13 @@ def sector_momentum_rotation(
 
 
 def multi_asset_trend_following_equal_weight(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     lookback_days: int = 252,
     **_params: object,
 ) -> pd.DataFrame:
-    px = prices.copy()
-    if isinstance(px, pd.Series):
-        px = px.to_frame()
+    px = data.prices
 
-    mom = px.pct_change(lookback_days)
+    mom = px.pct_change(lookback_days, fill_method=None)
     rebalance_dates = _month_ends(px.index)
     w_reb = pd.DataFrame(0.0, index=rebalance_dates, columns=px.columns)
     for d in rebalance_dates:
@@ -228,17 +217,15 @@ def multi_asset_trend_following_equal_weight(
 
 
 def trend_following_momentum_inv_vol(
-    prices: pd.DataFrame | pd.Series,
+    data: MarketData,
     lookback_days: int = 252,
     vol_days: int = 63,
     **_params: object,
 ) -> pd.DataFrame:
-    px = prices.copy()
-    if isinstance(px, pd.Series):
-        px = px.to_frame()
+    px = data.prices
 
-    mom = px.pct_change(lookback_days)
-    vol = px.pct_change().rolling(vol_days).std() * np.sqrt(252)
+    mom = px.pct_change(lookback_days, fill_method=None)
+    vol = px.pct_change(fill_method=None).rolling(vol_days).std() * np.sqrt(252)
 
     rebalance_dates = _month_ends(px.index)
     w_reb = pd.DataFrame(0.0, index=rebalance_dates, columns=px.columns)
@@ -255,3 +242,151 @@ def trend_following_momentum_inv_vol(
         w_reb.loc[d, eligible] = inv.values
 
     return _apply_monthly_rebalance(w_reb, px.index)
+
+
+def _cross_sectional_topk_monthly(
+    scores: pd.DataFrame,
+    *,
+    top_n: int,
+    ascending: bool,
+) -> pd.DataFrame:
+    if top_n <= 0:
+        raise ValueError("Expected top_n > 0")
+
+    rebalance_dates = _month_ends(scores.index)
+    w_reb = pd.DataFrame(0.0, index=rebalance_dates, columns=scores.columns)
+
+    for d in rebalance_dates:
+        row = scores.loc[d].dropna()
+        if row.empty:
+            continue
+        picks = row.sort_values(ascending=ascending).head(top_n).index.tolist()
+        if picks:
+            w_reb.loc[d, picks] = 1.0 / len(picks)
+
+    return _apply_monthly_rebalance(w_reb, scores.index)
+
+
+def equity_cross_sectional_momentum(
+    data: MarketData,
+    lookback_days: int = 252,
+    top_n: int = 100,
+    **_params: object,
+) -> pd.DataFrame:
+    """
+    Long-only cross-sectional momentum: hold top-N tickers by trailing return.
+    """
+    px = data.prices
+    mom: pd.DataFrame = pd.DataFrame(px.pct_change(lookback_days, fill_method=None))
+    return _cross_sectional_topk_monthly(mom, top_n=top_n, ascending=False)
+
+
+def equity_value_long_only(
+    data: MarketData,
+    value_field: str = "pe",
+    top_n: int = 100,
+    **_params: object,
+) -> pd.DataFrame:
+    """
+    Long-only value: hold top-N cheapest by `value_field` (lower is better).
+
+    Requires DAILY feature present in `data.features[value_field]`.
+    """
+    px = data.prices
+    v: pd.DataFrame = pd.DataFrame(data.feature(value_field)).reindex(px.index).ffill()
+    v = v.reindex(columns=px.columns)
+
+    if value_field.lower() in {"pe", "pb", "ps"}:
+        v = v.where(v > 0)
+
+    return _cross_sectional_topk_monthly(v, top_n=top_n, ascending=True)
+
+
+def equity_low_volatility_long_only(
+    data: MarketData,
+    lookback_days: int = 252,
+    top_n: int = 100,
+    **_params: object,
+) -> pd.DataFrame:
+    """
+    Long-only low-vol anomaly: hold top-N lowest realized volatility.
+    """
+    px = data.prices
+    rets: pd.DataFrame = pd.DataFrame(px.pct_change(fill_method=None))
+    vol: pd.DataFrame = pd.DataFrame(rets.rolling(lookback_days).std())
+    return _cross_sectional_topk_monthly(vol, top_n=top_n, ascending=True)
+
+
+def equity_residual_momentum(
+    data: MarketData,
+    lookback_days: int = 252,
+    beta_window_days: int = 252,
+    top_n: int = 100,
+    **_params: object,
+) -> pd.DataFrame:
+    """
+    Long-only residual momentum: compute CAPM residual returns vs SPY and rank by residual momentum.
+
+    Requires `data.features['benchmark_spy']` containing SPY closeadj prices (single-column DF).
+    """
+    px = data.prices
+    spy_px = data.feature("benchmark_spy").reindex(px.index).ffill()
+    spy = spy_px.iloc[:, 0]
+
+    rs: pd.DataFrame = pd.DataFrame(px.pct_change(fill_method=None)).fillna(0.0)
+    rm: pd.Series = spy.pct_change(fill_method=None).fillna(0.0)
+
+    # Rolling beta via moments to avoid per-ticker regressions.
+    rm_mean = rm.rolling(beta_window_days).mean()
+    rm2_mean = (rm * rm).rolling(beta_window_days).mean()
+    var_m = rm2_mean - rm_mean * rm_mean
+    var_m = var_m.replace(0.0, np.nan)
+
+    rs_mean: pd.DataFrame = pd.DataFrame(rs.rolling(beta_window_days).mean())
+    rsm_mean: pd.DataFrame = pd.DataFrame(rs.mul(rm, axis=0).rolling(beta_window_days).mean())
+    cov_sm: pd.DataFrame = pd.DataFrame(rsm_mean - rs_mean.mul(rm_mean, axis=0))
+    beta: pd.DataFrame = pd.DataFrame(cov_sm.div(var_m, axis=0))
+
+    residual: pd.DataFrame = pd.DataFrame(rs - beta.mul(rm, axis=0))
+
+    # Residual momentum via rolling sum of log(1+r).
+    log1p: pd.DataFrame = pd.DataFrame(np.log1p(residual.replace(-1.0, np.nan)))
+    score: pd.DataFrame = pd.DataFrame(log1p.rolling(lookback_days).sum())
+    return _cross_sectional_topk_monthly(score, top_n=top_n, ascending=False)
+
+
+def equity_multifactor_long_only(
+    data: MarketData,
+    lookback_days: int = 252,
+    vol_lookback_days: int = 252,
+    value_field: str = "pe",
+    top_n: int = 100,
+    w_mom: float = 1.0,
+    w_val: float = 1.0,
+    w_low_vol: float = 1.0,
+    **_params: object,
+) -> pd.DataFrame:
+    """
+    Simple multifactor: z(mom) + z(-value) + z(-vol), then long top-N.
+    """
+    px = data.prices
+    mom: pd.DataFrame = pd.DataFrame(px.pct_change(lookback_days, fill_method=None))
+    rets: pd.DataFrame = pd.DataFrame(px.pct_change(fill_method=None))
+    vol: pd.DataFrame = pd.DataFrame(rets.rolling(vol_lookback_days).std())
+    val: pd.DataFrame = (
+        pd.DataFrame(data.feature(value_field)).reindex(px.index).ffill().reindex(columns=px.columns)
+    )
+    if value_field.lower() in {"pe", "pb", "ps"}:
+        val = val.where(val > 0)
+
+    def zscore(frame: pd.DataFrame) -> pd.DataFrame:
+        mu = frame.mean(axis=1)
+        sd = pd.Series(frame.std(axis=1)).replace(0.0, np.nan)
+        return frame.sub(mu, axis=0).div(sd, axis=0)
+
+    score = (
+        w_mom * zscore(mom)
+        + w_val * zscore(-val)
+        + w_low_vol * zscore(-vol)
+    )
+    return _cross_sectional_topk_monthly(score, top_n=top_n, ascending=False)

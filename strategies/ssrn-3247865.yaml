@@ -25,6 +25,89 @@ strategies:
     params:
       lookback_days: 252
 
+  - id: "3.1-cs-momentum-us-equities"
+    name: "3.1 Price-momentum (US equities, cross-sectional)"
+    paper:
+      section: "3.1"
+      title: "Price-momentum"
+    kind: "equity_cs_momentum"
+    universe:
+      type: "sharadar_us_equities_liquid"
+      config:
+        exchanges: ["NYSE", "NASDAQ"]
+        max_tickers: 300
+        min_price: 5.0
+    params:
+      lookback_days: 252
+      top_n: 100
+
+  - id: "3.3-value-us-equities"
+    name: "3.3 Value (US equities, low PE)"
+    paper:
+      section: "3.3"
+      title: "Value"
+    kind: "equity_value"
+    universe:
+      type: "sharadar_us_equities_liquid"
+      config:
+        exchanges: ["NYSE", "NASDAQ"]
+        max_tickers: 300
+        min_price: 5.0
+    params:
+      value_field: "pe"
+      top_n: 100
+
+  - id: "3.4-low-vol-us-equities"
+    name: "3.4 Low-volatility anomaly (US equities)"
+    paper:
+      section: "3.4"
+      title: "Low-volatility anomaly"
+    kind: "equity_low_vol"
+    universe:
+      type: "sharadar_us_equities_liquid"
+      config:
+        exchanges: ["NYSE", "NASDAQ"]
+        max_tickers: 300
+        min_price: 5.0
+    params:
+      lookback_days: 252
+      top_n: 100
+
+  - id: "3.6-multifactor-us-equities"
+    name: "3.6 Multifactor portfolio (US equities)"
+    paper:
+      section: "3.6"
+      title: "Multifactor portfolio"
+    kind: "equity_multifactor"
+    universe:
+      type: "sharadar_us_equities_liquid"
+      config:
+        exchanges: ["NYSE", "NASDAQ"]
+        max_tickers: 300
+        min_price: 5.0
+    params:
+      lookback_days: 252
+      vol_lookback_days: 252
+      value_field: "pe"
+      top_n: 100
+
+  - id: "3.7-residual-momentum-us-equities"
+    name: "3.7 Residual momentum (US equities, vs SPY)"
+    paper:
+      section: "3.7"
+      title: "Residual momentum"
+    kind: "equity_residual_momentum"
+    universe:
+      type: "sharadar_us_equities_liquid"
+      config:
+        exchanges: ["NYSE", "NASDAQ"]
+        max_tickers: 300
+        min_price: 5.0
+    params:
+      lookback_days: 252
+      beta_window_days: 252
+      top_n: 100
+
   - id: "3.11-single-ma"
     name: "3.11 Single moving average (SPY, SMA200)"
     paper:

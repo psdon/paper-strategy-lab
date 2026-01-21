@@ -43,7 +43,9 @@ def run_portfolio_backtest(
     w = w.sort_index().reindex(px.index).fillna(0.0)
     w = w.reindex(columns=px.columns).fillna(0.0)
 
-    rets = px.pct_change().replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    rets = (
+        px.pct_change(fill_method=None).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    )
 
     w_exec = w.shift(lag_days).fillna(0.0)
 

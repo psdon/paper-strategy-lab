@@ -46,6 +46,12 @@ To run all currently implemented strategies and rank by Sharpe:
 paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --years 5
 ```
 
+To write a full Markdown results artifact (recommended for sharing):
+
+```bash
+paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --start 2005-01-01 --out-md docs/RESULTS_since_2005.md
+```
+
 The built-in runner currently supports (growing list):
 
 - `kind: buy_and_hold`
@@ -57,5 +63,10 @@ The built-in runner currently supports (growing list):
 - `kind: sector_momentum_rotation`
 - `kind: multi_asset_trend_equal`
 - `kind: trend_follow_invvol`
+- `kind: equity_cs_momentum` (US equities; requires Sharadar SEP)
+- `kind: equity_value` (US equities; requires Sharadar DAILY)
+- `kind: equity_low_vol` (US equities; requires Sharadar SEP)
+- `kind: equity_multifactor` (US equities; requires SEP + DAILY)
+- `kind: equity_residual_momentum` (US equities vs SPY; requires SEP + SPY prices)
 
 Extend `src/paper_strategy_lab/strategies/builtins.py` and `src/paper_strategy_lab/strategies/runner.py` as you add paper-specific strategy logic.

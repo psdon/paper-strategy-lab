@@ -52,31 +52,31 @@ This table tracks which paper strategies are implemented in code/specs.
 | 2.43 | Synthetic call | blocked |  | Options strategy; needs options chain data. |
 | 2.44 | Conversion | blocked |  | Options strategy; needs options chain data. |
 | 2.45 | Reverse conversion | blocked |  | Options strategy; needs options chain data. |
-| 3.1 | Price-momentum | implemented | 3.1-price-momentum | kind=time_series_momentum |
+| 3.1 | Price-momentum | implemented | 3.1-price-momentum, 3.1-cs-momentum-us-equities | kinds=equity_cs_momentum,time_series_momentum |
 | 3.2 | Earnings-momentum | planned |  | Not yet implemented. |
-| 3.3 | Value | planned |  | Not yet implemented. |
-| 3.4 | Low-volatility anomaly | planned |  | Not yet implemented. |
+| 3.3 | Value | implemented | 3.3-value-us-equities | kinds=equity_value |
+| 3.4 | Low-volatility anomaly | implemented | 3.4-low-vol-us-equities | kinds=equity_low_vol |
 | 3.5 | Implied volatility | planned |  | Not yet implemented. |
-| 3.6 | Multifactor portfolio | planned |  | Not yet implemented. |
-| 3.7 | Residual momentum | planned |  | Not yet implemented. |
+| 3.6 | Multifactor portfolio | implemented | 3.6-multifactor-us-equities | kinds=equity_multifactor |
+| 3.7 | Residual momentum | implemented | 3.7-residual-momentum-us-equities | kinds=equity_residual_momentum |
 | 3.8 | Pairs trading | planned |  | Not yet implemented. |
-| 3.9 | Mean-reversion – single cluster | implemented | 3.9-mean-reversion | kind=mean_reversion_drawdown |
-| 3.11 | Single moving average | implemented | 3.11-single-ma | kind=single_moving_average |
-| 3.12 | Two moving averages | implemented | 3.12-two-ma | kind=two_moving_averages |
-| 3.13 | Three moving averages | implemented | 3.13-three-ma | kind=three_moving_averages |
-| 3.14 | Support and resistance | implemented | 3.14-support-resistance | kind=support_resistance_breakout |
-| 3.15 | Channel | implemented | 3.15-channel | kind=channel_breakout |
+| 3.9 | Mean-reversion – single cluster | implemented | 3.9-mean-reversion | kinds=mean_reversion_drawdown |
+| 3.11 | Single moving average | implemented | 3.11-single-ma | kinds=single_moving_average |
+| 3.12 | Two moving averages | implemented | 3.12-two-ma | kinds=two_moving_averages |
+| 3.13 | Three moving averages | implemented | 3.13-three-ma | kinds=three_moving_averages |
+| 3.14 | Support and resistance | implemented | 3.14-support-resistance | kinds=support_resistance_breakout |
+| 3.15 | Channel | implemented | 3.15-channel | kinds=channel_breakout |
 | 3.16 | Event-driven – M&A | planned |  | Not yet implemented. |
 | 3.17 | Machine learning – single-stock KNN | planned |  | Not yet implemented. |
 | 3.18 | Statistical arbitrage – optimization | planned |  | Not yet implemented. |
 | 3.19 | Market-making | planned |  | Not yet implemented. |
 | 3.20 | Alpha combos | planned |  | Not yet implemented. |
-| 4.1 | Sector momentum rotation | implemented | 4.1-sector-mom-rotation | kind=sector_momentum_rotation |
+| 4.1 | Sector momentum rotation | implemented | 4.1-sector-mom-rotation | kinds=sector_momentum_rotation |
 | 4.2 | Alpha rotation | planned |  | Not yet implemented. |
 | 4.3 | Index volatility | planned |  | Not yet implemented. |
 | 4.4 | Smart beta | planned |  | Not yet implemented. |
 | 4.5 | Leveraged ETFs | planned |  | Not yet implemented. |
-| 4.6 | Multi-asset trend following | implemented | 4.6-multi-asset-trend | kind=multi_asset_trend_equal |
+| 4.6 | Multi-asset trend following | implemented | 4.6-multi-asset-trend | kinds=multi_asset_trend_equal |
 | 5.2 | Rolling down the yield curve | blocked |  | Rates strategy; needs yield curves / bond data. |
 | 5.3 | Floating-to-fixed interest rate swap | blocked |  | Rates strategy; needs yield curves / bond data. |
 | 5.4 | Fixed-to-floating interest rate swap | blocked |  | Rates strategy; needs yield curves / bond data. |
@@ -103,7 +103,7 @@ This table tracks which paper strategies are implemented in code/specs.
 | 10.1 | Single stock, index and sector hedged carry | blocked |  | Specialized/institutional data not wired yet. |
 | 10.2 | Convertible arbitrage (hedged carry) | blocked |  | Specialized/institutional data not wired yet. |
 | 10.3 | Convertible arbitrage (carry + gamma) | blocked |  | Specialized/institutional data not wired yet. |
-| 10.4 | Trend following (momentum) | implemented | 10.4-trend-following-mom-invvol | kind=trend_follow_invvol |
+| 10.4 | Trend following (momentum) | implemented | 10.4-trend-following-mom-invvol | kinds=trend_follow_invvol |
 | 11.1 | CDS basis | blocked |  | Specialized/institutional data not wired yet. |
 | 11.2 | Index tranche arbitrage | blocked |  | Specialized/institutional data not wired yet. |
 | 11.3 | Recovery rate arbitrage | blocked |  | Specialized/institutional data not wired yet. |

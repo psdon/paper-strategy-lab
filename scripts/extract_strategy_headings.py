@@ -10,7 +10,10 @@ from pypdf import PdfReader
 
 def main() -> int:
     if len(sys.argv) < 3:
-        print("Usage: python scripts/extract_strategy_headings.py <pdf> <out.json>", file=sys.stderr)
+        print(
+            "Usage: python scripts/extract_strategy_headings.py <pdf> <out.json>",
+            file=sys.stderr,
+        )
         return 2
 
     pdf_path = Path(sys.argv[1]).expanduser()
@@ -51,4 +54,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

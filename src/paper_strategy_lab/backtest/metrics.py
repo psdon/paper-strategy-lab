@@ -43,3 +43,43 @@ def sharpe_ratio(
     if vol == 0:
         return 0.0
     return float((np.mean(excess) / vol) * (periods_per_year**0.5))
+
+
+def sortino_ratio(
+    daily_returns: pd.Series,
+    minimum_acceptable_return_annual: float = 0.0,
+    periods_per_year: int = 252,
+) -> float:
+    """
+    Sortino ratio using downside deviation of excess returns vs MAR.
+
+    Downside deviation is computed as sqrt(mean(min(0, excess)^2)).
+    """
+    r = pd.Series(daily_returns).astype(float).dropna()
+    if r.empty:
+        return 0.0
+
+    mar_daily = (1.0 + minimum_acceptable_return_annual) ** (1.0 / periods_per_year) - 1.0
+    excess = r - mar_daily
+    downside = np.minimum(0.0, excess.to_numpy())
+    downside_dev = float(np.sqrt(np.mean(downside**2)))
+    if downside_dev == 0:
+        return 0.0
+    return float((np.mean(excess) / downside_dev) * (periods_per_year**0.5))
+
+
+def calmar_ratio(daily_returns: pd.Series, periods_per_year: int = 252) -> float:
+    """
+    Calmar ratio = CAGR / |max drawdown|.
+    """
+    r = pd.Series(daily_returns).astype(float).dropna()
+    if r.empty:
+        return 0.0
+
+    cagr = annualized_return(r, periods_per_year=periods_per_year)
+    equity = pd.Series(1.0 + r).cumprod()
+    mdd = max_drawdown(equity)
+    denom = abs(mdd)
+    if denom == 0:
+        return 0.0
+    return float(cagr / denom)

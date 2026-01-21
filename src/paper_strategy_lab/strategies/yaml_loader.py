@@ -14,7 +14,13 @@ def load_strategy_specs(yaml_path: Path) -> list[StrategySpec]:
     for item in items:
         paper = dict(item.get("paper") or {})
         universe_obj = item.get("universe") or {}
+        universe_type = None
+        universe_config = {}
+        universe: list[str] = []
+
         if isinstance(universe_obj, dict):
+            universe_type = universe_obj.get("type")
+            universe_config = dict(universe_obj.get("config") or {})
             universe = list(universe_obj.get("tickers") or [])
         else:
             universe = list(universe_obj or [])
@@ -33,6 +39,8 @@ def load_strategy_specs(yaml_path: Path) -> list[StrategySpec]:
                 paper_title=paper.get("title"),
                 kind=kind,
                 universe=[str(t).strip().upper() for t in universe if str(t).strip()],
+                universe_type=str(universe_type).strip() if universe_type else None,
+                universe_config=universe_config,
                 params=params,
             )
         )

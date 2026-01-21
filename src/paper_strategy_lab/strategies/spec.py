@@ -13,4 +13,6 @@ class StrategySpec:
     paper_title: str | None
     kind: str
     universe: list[str]
+    universe_type: str | None
+    universe_config: dict[str, Any]
     params: dict[str, Any]
