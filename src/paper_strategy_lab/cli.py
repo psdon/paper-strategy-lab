@@ -213,6 +213,11 @@ def leaderboard(
     end: str | None = typer.Option(None, "--end", help="YYYY-MM-DD"),
     fee_bps: float = typer.Option(0.0, "--fee-bps", min=0.0),
     slippage_bps: float = typer.Option(0.0, "--slippage-bps", min=0.0),
+    sort_by: str = typer.Option(
+        "sharpe",
+        "--sort",
+        help="Sort by: sharpe|sortino|calmar|cagr (default sharpe)",
+    ),
     out_csv: Path | None = typer.Option(None, "--out-csv", dir_okay=False),
     out_md: Path | None = typer.Option(None, "--out-md", dir_okay=False),
 ) -> None:
@@ -377,7 +382,14 @@ def leaderboard(
         console.print("No strategies produced results (check universe/tickers).")
         raise typer.Exit(code=1)
 
-    df = df.sort_values("sharpe", ascending=False)
+    sort_by = sort_by.strip().lower()
+    valid_sorts = {"sharpe", "sortino", "calmar", "cagr"}
+    if sort_by not in valid_sorts:
+        raise typer.BadParameter(
+            f"Invalid --sort={sort_by!r}; expected one of {sorted(valid_sorts)}"
+        )
+
+    df = df.sort_values(sort_by, ascending=False)
 
     table = Table(title=f"Leaderboard: {spec.name}")
     table_cols = [
@@ -499,7 +511,7 @@ def leaderboard(
             f"- Costs: fee={fee_bps} bps, slippage={slippage_bps} bps (applied to turnover)."
         )
         md_lines.append("")
-        md_lines.append("## Leaderboard (Sharpe-ranked)")
+        md_lines.append(f"## Leaderboard ({sort_by.capitalize()}-ranked)")
         md_lines.append("")
         md_lines.extend(lines)
         md_lines.append("")
