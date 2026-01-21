@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.pyc
+
+data/papers/*.pdf
+data/sharadar/
+tmp/
+outputs/
+
+.DS_Store

@@ -1,0 +1,658 @@
+[
+  {
+    "section": "2.2",
+    "title": "Covered call",
+    "page_index": 18
+  },
+  {
+    "section": "2.3",
+    "title": "Covered put",
+    "page_index": 18
+  },
+  {
+    "section": "2.4",
+    "title": "Protective put",
+    "page_index": 19
+  },
+  {
+    "section": "2.5",
+    "title": "Protective call",
+    "page_index": 19
+  },
+  {
+    "section": "2.6",
+    "title": "Bull call spread",
+    "page_index": 19
+  },
+  {
+    "section": "2.7",
+    "title": "Bull put spread",
+    "page_index": 20
+  },
+  {
+    "section": "2.8",
+    "title": "Bear call spread",
+    "page_index": 20
+  },
+  {
+    "section": "2.9",
+    "title": "Bear put spread",
+    "page_index": 20
+  },
+  {
+    "section": "2.10",
+    "title": "Long synthetic forward",
+    "page_index": 21
+  },
+  {
+    "section": "2.11",
+    "title": "Short synthetic forward",
+    "page_index": 21
+  },
+  {
+    "section": "2.12",
+    "title": "Long combo",
+    "page_index": 21
+  },
+  {
+    "section": "2.13",
+    "title": "Short combo",
+    "page_index": 22
+  },
+  {
+    "section": "2.14",
+    "title": "Bull call ladder",
+    "page_index": 22
+  },
+  {
+    "section": "2.15",
+    "title": "Bull put ladder",
+    "page_index": 23
+  },
+  {
+    "section": "2.16",
+    "title": "Bear call ladder",
+    "page_index": 23
+  },
+  {
+    "section": "2.17",
+    "title": "Bear put ladder",
+    "page_index": 23
+  },
+  {
+    "section": "2.18",
+    "title": "Calendar call spread",
+    "page_index": 24
+  },
+  {
+    "section": "2.19",
+    "title": "Calendar put spread",
+    "page_index": 24
+  },
+  {
+    "section": "2.20",
+    "title": "Diagonal call spread",
+    "page_index": 25
+  },
+  {
+    "section": "2.21",
+    "title": "Diagonal put spread",
+    "page_index": 25
+  },
+  {
+    "section": "2.22",
+    "title": "Ratio call spread",
+    "page_index": 26
+  },
+  {
+    "section": "2.23",
+    "title": "Ratio put spread",
+    "page_index": 26
+  },
+  {
+    "section": "2.24",
+    "title": "Backspread",
+    "page_index": 27
+  },
+  {
+    "section": "2.25",
+    "title": "Box spread",
+    "page_index": 27
+  },
+  {
+    "section": "2.26",
+    "title": "Butterfly spread",
+    "page_index": 28
+  },
+  {
+    "section": "2.27",
+    "title": "Condor spread",
+    "page_index": 28
+  },
+  {
+    "section": "2.28",
+    "title": "Iron butterfly spread",
+    "page_index": 29
+  },
+  {
+    "section": "2.29",
+    "title": "Iron condor spread",
+    "page_index": 29
+  },
+  {
+    "section": "2.30",
+    "title": "Straddle",
+    "page_index": 30
+  },
+  {
+    "section": "2.31",
+    "title": "Strangle",
+    "page_index": 30
+  },
+  {
+    "section": "2.32",
+    "title": "Collar",
+    "page_index": 31
+  },
+  {
+    "section": "2.33",
+    "title": "Ratio collar",
+    "page_index": 32
+  },
+  {
+    "section": "2.34",
+    "title": "Fence",
+    "page_index": 32
+  },
+  {
+    "section": "2.35",
+    "title": "Seagull spread",
+    "page_index": 33
+  },
+  {
+    "section": "2.36",
+    "title": "Switch",
+    "page_index": 34
+  },
+  {
+    "section": "2.37",
+    "title": "Risk reversal",
+    "page_index": 34
+  },
+  {
+    "section": "2.38",
+    "title": "Costless collar",
+    "page_index": 35
+  },
+  {
+    "section": "2.39",
+    "title": "Married put",
+    "page_index": 35
+  },
+  {
+    "section": "2.40",
+    "title": "Synthetic long stock",
+    "page_index": 36
+  },
+  {
+    "section": "2.41",
+    "title": "Synthetic short stock",
+    "page_index": 36
+  },
+  {
+    "section": "2.42",
+    "title": "Synthetic put",
+    "page_index": 37
+  },
+  {
+    "section": "2.43",
+    "title": "Synthetic call",
+    "page_index": 37
+  },
+  {
+    "section": "2.44",
+    "title": "Conversion",
+    "page_index": 38
+  },
+  {
+    "section": "2.45",
+    "title": "Reverse conversion",
+    "page_index": 39
+  },
+  {
+    "section": "3.1",
+    "title": "Price-momentum",
+    "page_index": 40
+  },
+  {
+    "section": "3.2",
+    "title": "Earnings-momentum",
+    "page_index": 41
+  },
+  {
+    "section": "3.3",
+    "title": "Value",
+    "page_index": 42
+  },
+  {
+    "section": "3.4",
+    "title": "Low-volatility anomaly",
+    "page_index": 43
+  },
+  {
+    "section": "3.5",
+    "title": "Implied volatility",
+    "page_index": 43
+  },
+  {
+    "section": "3.6",
+    "title": "Multifactor portfolio",
+    "page_index": 44
+  },
+  {
+    "section": "3.7",
+    "title": "Residual momentum",
+    "page_index": 44
+  },
+  {
+    "section": "3.8",
+    "title": "Pairs trading",
+    "page_index": 45
+  },
+  {
+    "section": "3.9",
+    "title": "Mean-reversion \u2013 single cluster",
+    "page_index": 46
+  },
+  {
+    "section": "3.11",
+    "title": "Single moving average",
+    "page_index": 49
+  },
+  {
+    "section": "3.12",
+    "title": "Two moving averages",
+    "page_index": 50
+  },
+  {
+    "section": "3.13",
+    "title": "Three moving averages",
+    "page_index": 50
+  },
+  {
+    "section": "3.14",
+    "title": "Support and resistance",
+    "page_index": 51
+  },
+  {
+    "section": "3.15",
+    "title": "Channel",
+    "page_index": 52
+  },
+  {
+    "section": "3.16",
+    "title": "Event-driven \u2013 M&A",
+    "page_index": 52
+  },
+  {
+    "section": "3.17",
+    "title": "Machine learning \u2013 single-stock KNN",
+    "page_index": 54
+  },
+  {
+    "section": "3.18",
+    "title": "Statistical arbitrage \u2013 optimization",
+    "page_index": 55
+  },
+  {
+    "section": "3.19",
+    "title": "Market-making",
+    "page_index": 58
+  },
+  {
+    "section": "3.20",
+    "title": "Alpha combos",
+    "page_index": 59
+  },
+  {
+    "section": "4.1",
+    "title": "Sector momentum rotation",
+    "page_index": 61
+  },
+  {
+    "section": "4.2",
+    "title": "Alpha rotation",
+    "page_index": 63
+  },
+  {
+    "section": "4.3",
+    "title": "Index volatility",
+    "page_index": 64
+  },
+  {
+    "section": "4.4",
+    "title": "Smart beta",
+    "page_index": 64
+  },
+  {
+    "section": "4.5",
+    "title": "Leveraged ETFs",
+    "page_index": 65
+  },
+  {
+    "section": "4.6",
+    "title": "Multi-asset trend following",
+    "page_index": 65
+  },
+  {
+    "section": "5.2",
+    "title": "Rolling down the yield curve",
+    "page_index": 74
+  },
+  {
+    "section": "5.3",
+    "title": "Floating-to-fixed interest rate swap",
+    "page_index": 75
+  },
+  {
+    "section": "5.4",
+    "title": "Fixed-to-floating interest rate swap",
+    "page_index": 76
+  },
+  {
+    "section": "5.5",
+    "title": "Treasury bond futures duration neutral carry",
+    "page_index": 76
+  },
+  {
+    "section": "5.6",
+    "title": "Swap spread",
+    "page_index": 77
+  },
+  {
+    "section": "5.7",
+    "title": "Butterfly",
+    "page_index": 78
+  },
+  {
+    "section": "5.8",
+    "title": "PCA curve strategy",
+    "page_index": 79
+  },
+  {
+    "section": "6.1",
+    "title": "TIPS breakeven inflation",
+    "page_index": 81
+  },
+  {
+    "section": "6.2",
+    "title": "Basis trade",
+    "page_index": 82
+  },
+  {
+    "section": "7.1",
+    "title": "Risk reversal",
+    "page_index": 84
+  },
+  {
+    "section": "7.2",
+    "title": "Dispersion",
+    "page_index": 85
+  },
+  {
+    "section": "7.3",
+    "title": "Risk-free arbitrage",
+    "page_index": 86
+  },
+  {
+    "section": "7.4",
+    "title": "Butterfly",
+    "page_index": 87
+  },
+  {
+    "section": "7.5",
+    "title": "Straddle",
+    "page_index": 88
+  },
+  {
+    "section": "7.6",
+    "title": "Strangle",
+    "page_index": 89
+  },
+  {
+    "section": "7.7",
+    "title": "Directional straddle",
+    "page_index": 90
+  },
+  {
+    "section": "8.1",
+    "title": "Carry",
+    "page_index": 91
+  },
+  {
+    "section": "8.2",
+    "title": "Value",
+    "page_index": 92
+  },
+  {
+    "section": "8.3",
+    "title": "Curve",
+    "page_index": 93
+  },
+  {
+    "section": "8.4",
+    "title": "Momentum & carry combo",
+    "page_index": 94
+  },
+  {
+    "section": "9.1",
+    "title": "FX carry",
+    "page_index": 94
+  },
+  {
+    "section": "9.2",
+    "title": "FX momentum",
+    "page_index": 95
+  },
+  {
+    "section": "9.3",
+    "title": "FX value",
+    "page_index": 95
+  },
+  {
+    "section": "10.1",
+    "title": "Single stock, index and sector hedged carry",
+    "page_index": 95
+  },
+  {
+    "section": "10.2",
+    "title": "Convertible arbitrage (hedged carry)",
+    "page_index": 95
+  },
+  {
+    "section": "10.3",
+    "title": "Convertible arbitrage (carry + gamma)",
+    "page_index": 96
+  },
+  {
+    "section": "10.4",
+    "title": "Trend following (momentum)",
+    "page_index": 96
+  },
+  {
+    "section": "11.1",
+    "title": "CDS basis",
+    "page_index": 97
+  },
+  {
+    "section": "11.2",
+    "title": "Index tranche arbitrage",
+    "page_index": 98
+  },
+  {
+    "section": "11.3",
+    "title": "Recovery rate arbitrage",
+    "page_index": 99
+  },
+  {
+    "section": "11.4",
+    "title": "Capital structure arbitrage",
+    "page_index": 100
+  },
+  {
+    "section": "12.1",
+    "title": "ETF arbitrage",
+    "page_index": 101
+  },
+  {
+    "section": "12.2",
+    "title": "Triangle arbitrage",
+    "page_index": 102
+  },
+  {
+    "section": "12.3",
+    "title": "Covered interest parity (CIP)",
+    "page_index": 103
+  },
+  {
+    "section": "12.4",
+    "title": "Treasury bond futures arbitrage",
+    "page_index": 104
+  },
+  {
+    "section": "12.5",
+    "title": "Repo",
+    "page_index": 105
+  },
+  {
+    "section": "13.1",
+    "title": "Correlation trading",
+    "page_index": 105
+  },
+  {
+    "section": "13.2",
+    "title": "Curve",
+    "page_index": 106
+  },
+  {
+    "section": "13.3",
+    "title": "Capital structure arbitrage",
+    "page_index": 107
+  },
+  {
+    "section": "13.4",
+    "title": "M&A arbitrage",
+    "page_index": 108
+  },
+  {
+    "section": "14.1",
+    "title": "Distressed debt",
+    "page_index": 109
+  },
+  {
+    "section": "14.2",
+    "title": "CLO equity",
+    "page_index": 110
+  },
+  {
+    "section": "14.3",
+    "title": "Master limited partnership (MLP)",
+    "page_index": 111
+  },
+  {
+    "section": "15.1",
+    "title": "Commercial real estate \u2013 private equity approach",
+    "page_index": 111
+  },
+  {
+    "section": "16.1",
+    "title": "Real estate investment trust (REIT)",
+    "page_index": 112
+  },
+  {
+    "section": "16.2",
+    "title": "Real estate momentum \u2013 individual REITs approach",
+    "page_index": 112
+  },
+  {
+    "section": "16.3",
+    "title": "Real estate momentum \u2013 property type approach",
+    "page_index": 113
+  },
+  {
+    "section": "16.4",
+    "title": "Real estate momentum \u2013 regional approach",
+    "page_index": 113
+  },
+  {
+    "section": "17.1",
+    "title": "Repo",
+    "page_index": 114
+  },
+  {
+    "section": "17.2",
+    "title": "Treasury",
+    "page_index": 115
+  },
+  {
+    "section": "17.3",
+    "title": "Dollar",
+    "page_index": 116
+  },
+  {
+    "section": "18.1",
+    "title": "Machine learning \u2013 neural networks",
+    "page_index": 116
+  },
+  {
+    "section": "18.2",
+    "title": "Machine learning \u2013 support vector machine",
+    "page_index": 117
+  },
+  {
+    "section": "18.3",
+    "title": "Machine learning \u2013 Bayes",
+    "page_index": 118
+  },
+  {
+    "section": "18.4",
+    "title": "Machine learning \u2013 k-nearest neighbors",
+    "page_index": 119
+  },
+  {
+    "section": "18.5",
+    "title": "Sentiment analysis",
+    "page_index": 120
+  },
+  {
+    "section": "19.1",
+    "title": "Energy",
+    "page_index": 121
+  },
+  {
+    "section": "19.2",
+    "title": "Fundamental macro momentum",
+    "page_index": 122
+  },
+  {
+    "section": "19.3",
+    "title": "Inflation",
+    "page_index": 123
+  },
+  {
+    "section": "20.1",
+    "title": "Global macro",
+    "page_index": 123
+  },
+  {
+    "section": "21.1",
+    "title": "Publicly traded infrastructure",
+    "page_index": 124
+  },
+  {
+    "section": "22.1",
+    "title": "Tax arbitrage",
+    "page_index": 124
+  }
+]
+

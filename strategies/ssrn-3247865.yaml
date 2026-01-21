@@ -1,0 +1,134 @@
+paper:
+  id: "ssrn-3247865"
+  title: "151 Trading Strategies"
+  source: "https://ssrn.com/abstract=3247865"
+
+strategies:
+  - id: "bh-spy"
+    name: "Benchmark: Buy & Hold (SPY)"
+    paper:
+      section: null
+      title: null
+    kind: "buy_and_hold"
+    universe:
+      tickers: ["SPY"]
+    params: {}
+
+  - id: "3.1-price-momentum"
+    name: "3.1 Price-momentum (SPY)"
+    paper:
+      section: "3.1"
+      title: "Price-momentum"
+    kind: "time_series_momentum"
+    universe:
+      tickers: ["SPY"]
+    params:
+      lookback_days: 252
+
+  - id: "3.11-single-ma"
+    name: "3.11 Single moving average (SPY, SMA200)"
+    paper:
+      section: "3.11"
+      title: "Single moving average"
+    kind: "single_moving_average"
+    universe:
+      tickers: ["SPY"]
+    params:
+      window: 200
+
+  - id: "3.9-mean-reversion"
+    name: "3.9 Mean-reversion (SPY, 5d<-3%)"
+    paper:
+      section: "3.9"
+      title: "Mean-reversion – single cluster"
+    kind: "mean_reversion_drawdown"
+    universe:
+      tickers: ["SPY"]
+    params:
+      lookback_days: 5
+      entry_return: -0.03
+      exit_return: 0.0
+
+  - id: "3.12-two-ma"
+    name: "3.12 Two moving averages (SPY, 50/200)"
+    paper:
+      section: "3.12"
+      title: "Two moving averages"
+    kind: "two_moving_averages"
+    universe:
+      tickers: ["SPY"]
+    params:
+      fast: 50
+      slow: 200
+
+  - id: "3.13-three-ma"
+    name: "3.13 Three moving averages (SPY, 20/50/200)"
+    paper:
+      section: "3.13"
+      title: "Three moving averages"
+    kind: "three_moving_averages"
+    universe:
+      tickers: ["SPY"]
+    params:
+      fast: 20
+      mid: 50
+      slow: 200
+
+  - id: "3.14-support-resistance"
+    name: "3.14 Support & resistance (SPY, 50d breakout)"
+    paper:
+      section: "3.14"
+      title: "Support and resistance"
+    kind: "support_resistance_breakout"
+    universe:
+      tickers: ["SPY"]
+    params:
+      window_days: 50
+
+  - id: "3.15-channel"
+    name: "3.15 Channel (SPY, 20/10)"
+    paper:
+      section: "3.15"
+      title: "Channel"
+    kind: "channel_breakout"
+    universe:
+      tickers: ["SPY"]
+    params:
+      entry_days: 20
+      exit_days: 10
+
+  - id: "4.1-sector-mom-rotation"
+    name: "4.1 Sector momentum rotation (top3, 6m, MA200)"
+    paper:
+      section: "4.1"
+      title: "Sector momentum rotation"
+    kind: "sector_momentum_rotation"
+    universe:
+      tickers: ["XLB", "XLE", "XLF", "XLI", "XLK", "XLP", "XLU", "XLV", "XLY", "XLRE"]
+    params:
+      lookback_days: 126
+      top_k: 3
+      ma_filter_days: 200
+
+  - id: "4.6-multi-asset-trend"
+    name: "4.6 Multi-asset trend following (mom>0, equal-weight)"
+    paper:
+      section: "4.6"
+      title: "Multi-asset trend following"
+    kind: "multi_asset_trend_equal"
+    universe:
+      tickers: ["SPY", "QQQ", "IWM", "EFA", "EEM", "TLT", "IEF", "LQD", "HYG", "GLD"]
+    params:
+      lookback_days: 252
+
+  - id: "10.4-trend-following-mom-invvol"
+    name: "10.4 Trend following (momentum, inv-vol)"
+    paper:
+      section: "10.4"
+      title: "Trend following (momentum)"
+    kind: "trend_follow_invvol"
+    universe:
+      tickers: ["SPY", "QQQ", "IWM", "EFA", "EEM", "TLT", "IEF", "LQD", "HYG", "GLD"]
+    params:
+      lookback_days: 252
+      vol_days: 63

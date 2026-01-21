@@ -1,0 +1,22 @@
+paper:
+  id: "examples"
+  title: "Built-in examples"
+
+strategies:
+  - id: "buy-and-hold-spy"
+    name: "Buy & Hold (SPY)"
+    description: "Long-only, always invested."
+    kind: "buy_and_hold"
+    universe:
+      tickers: ["SPY"]
+    params: {}
+
+  - id: "sma-20-100-spy"
+    name: "SMA Crossover 20/100 (SPY)"
+    description: "Long when SMA(20) > SMA(100)."
+    kind: "sma_crossover"
+    universe:
+      tickers: ["SPY"]
+    params:
+      fast: 20
+      slow: 100
