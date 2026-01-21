@@ -109,3 +109,9 @@ paper-strategy-lab list-strategies strategies/ssrn-3247865.yaml
 
 - `extract-strategy-candidates` is heuristic: it surfaces likely “strategy blocks” from page text.
 - Backtesting is scaffolded; you’ll still need to map each paper strategy to an implementable spec.
+
+## Public Repo Notes
+
+- Do not commit any datasets (Sharadar, vendor data dumps) or PDFs.
+- `docs/RESULTS_since_2005.md` is generated from local Sharadar data and may not be reproducible without the same dataset.
+- License: see `LICENSE`.

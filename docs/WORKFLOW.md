@@ -52,6 +52,12 @@ To write a full Markdown results artifact (recommended for sharing):
 paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --start 2005-01-01 --out-md docs/RESULTS_since_2005.md
 ```
 
+To sort the leaderboard by a different risk metric (e.g. Calmar):
+
+```bash
+paper-strategy-lab leaderboard strategies/ssrn-3247865.yaml --start 2005-01-01 --sort calmar --out-md docs/RESULTS_since_2005.md
+```
+
 The built-in runner currently supports (growing list):
 
 - `kind: buy_and_hold`

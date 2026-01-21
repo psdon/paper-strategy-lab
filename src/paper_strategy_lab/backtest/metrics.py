@@ -6,6 +6,8 @@ import pandas as pd
 
 def max_drawdown(equity_curve: pd.Series) -> float:
     s = pd.Series(equity_curve).astype(float)
+    if s.empty:
+        return 0.0
     running_max = s.cummax()
     drawdown = s / running_max - 1.0
     return float(np.nanmin(drawdown))
@@ -24,9 +26,12 @@ def annualized_return(daily_returns: pd.Series, periods_per_year: int = 252) -> 
 
 def annualized_volatility(daily_returns: pd.Series, periods_per_year: int = 252) -> float:
     r = pd.Series(daily_returns).astype(float).dropna()
-    if r.empty:
+    if len(r) < 2:
         return 0.0
-    return float(np.std(r, ddof=1) * (periods_per_year**0.5))
+    vol = float(np.std(r, ddof=1))
+    if not np.isfinite(vol):
+        return 0.0
+    return float(vol * (periods_per_year**0.5))
 
 
 def sharpe_ratio(
@@ -40,7 +45,7 @@ def sharpe_ratio(
     rf_daily = (1.0 + risk_free_rate_annual) ** (1.0 / periods_per_year) - 1.0
     excess = r - rf_daily
     vol = float(np.std(excess, ddof=1))
-    if vol == 0:
+    if not np.isfinite(vol) or vol == 0:
         return 0.0
     return float((np.mean(excess) / vol) * (periods_per_year**0.5))
 
@@ -63,7 +68,7 @@ def sortino_ratio(
     excess = r - mar_daily
     downside = np.minimum(0.0, excess.to_numpy())
     downside_dev = float(np.sqrt(np.mean(downside**2)))
-    if downside_dev == 0:
+    if not np.isfinite(downside_dev) or downside_dev == 0:
         return 0.0
     return float((np.mean(excess) / downside_dev) * (periods_per_year**0.5))
 
@@ -80,6 +85,6 @@ def calmar_ratio(daily_returns: pd.Series, periods_per_year: int = 252) -> float
     equity = pd.Series(1.0 + r).cumprod()
     mdd = max_drawdown(equity)
     denom = abs(mdd)
-    if denom == 0:
+    if not np.isfinite(denom) or denom == 0:
         return 0.0
     return float(cagr / denom)
